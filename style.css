@@ -1,0 +1,234 @@
+:root {
+    --deep-mocha: #4B3832;
+    --champagne-gold: #E6CBA8;
+    --velvet-burgundy: #722F37;
+    --midnight-blue: #1B1F3B;
+    --muted-emerald: #3A6351;
+    --pearl-white: #F8F3F1;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--midnight-blue);
+    color: var(--pearl-white);
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+}
+
+/* Navigation */
+nav {
+    background-color: rgba(75, 56, 50, 0.95);
+    padding: 1rem 5%;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    backdrop-filter: blur(10px);
+}
+
+.logo h1 {
+    color: var(--champagne-gold);
+    font-size: 1.8rem;
+}
+
+.tagline {
+    color: var(--pearl-white);
+    font-size: 0.9rem;
+}
+
+.menu-items a {
+    color: var(--pearl-white);
+    text-decoration: none;
+    margin: 0 1.5rem;
+    transition: color 0.3s ease;
+}
+
+.menu-items a:hover {
+    color: var(--champagne-gold);
+}
+
+/* Hero Section */
+.hero {
+    height: 80vh;
+    background: linear-gradient(rgba(27, 31, 59, 0.7), rgba(27, 31, 59, 0.9)),
+                url('path-to-your-hero-image.jpg');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 0 1rem;
+}
+
+.hero-content h1 {
+    color: var(--champagne-gold);
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+/* Products Grid */
+.products-section {
+    padding: 5rem 5%;
+}
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.product-card {
+    background-color: var(--deep-mocha);
+    border-radius: 10px;
+    padding: 1.5rem;
+    transition: transform 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+}
+
+.product-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+}
+
+.product-card h3 {
+    color: var(--champagne-gold);
+    margin-bottom: 0.5rem;
+}
+
+/* Buttons */
+.order-btn, .read-more-btn {
+    background-color: var(--velvet-burgundy);
+    color: var(--pearl-white);
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin: 0.5rem;
+}
+
+.order-btn:hover {
+    background-color: var(--muted-emerald);
+}
+
+/* Modal */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1100;
+}
+
+.modal-content {
+    background-color: var(--deep-mocha);
+    padding: 2rem;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 800px;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+/* Contact Section */
+.contact-section {
+    background-color: var(--deep-mocha);
+    padding: 5rem 5%;
+    text-align: center;
+}
+
+.contact-info {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    margin-top: 2rem;
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.contact-item i {
+    font-size: 1.5rem;
+    color: var(--champagne-gold);
+}
+
+/* Footer */
+footer {
+    background-color: var(--midnight-blue);
+    padding: 3rem 5% 1rem;
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 2rem;
+    border-top: 1px solid var(--champagne-gold);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .menu-items {
+        display: none;
+    }
+
+    .mobile-menu {
+        display: block;
+    }
+
+    .hero-content h1 {
+        font-size: 2rem;
+    }
+
+    .contact-info {
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+}
+
+/* Settings Panel */
+#settings-panel {
+    position: fixed;
+    right: 1rem;
+    top: 80px;
+    background-color: var(--deep-mocha);
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+}
+
+.hidden {
+    display: none;
+}
