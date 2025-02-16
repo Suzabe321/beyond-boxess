@@ -3,81 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Beyond Boxes - Luxury Gift Boxes</title>
-    <link rel="stylesheet" type="text/css" href="./styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>Beyond Boxes</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
 </head>
 <body>
-    <nav class="navbar">
-        <a href="#" class="logo">Beyond Boxes</a>
-        <div class="nav-links">
-            <a href="#birthday">Birthday</a>
-            <a href="#anniversary">Anniversary</a>
-            <a href="#wedding">Wedding</a>
-            <a href="#corporate">Corporate</a>
-            <a href="#seasonal">Seasonal</a>
-            <a href="#custom">Custom</a>
-            <a href="#luxury">Luxury</a>
-            <i class="fas fa-cog settings-icon" onclick="toggleSettings()"></i>
+    <header>
+        <h1>Beyond Boxes</h1>
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#products">Products</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li class="settings-icon">⚙️</li>
+            </ul>
+        </nav>
+    </header>
+    
+    <section id="products">
+        <h2>Our Products</h2>
+        <div class="product-list">
+            <div class="product">
+                <img src="images/premium_birthday.jpg" alt="Premium Birthday Box">
+                <h4>Premium Birthday Box</h4>
+                <a href="read_more_premium_birthday.html" class="read-more">Read More</a>
+                <button class="order-btn" onclick="orderNow('Premium Birthday Box')">Order Now</button>
+            </div>
+            <div class="product">
+                <img src="images/wooden_birthday.jpg" alt="Wooden Birthday Box">
+                <h4>Wooden Birthday Box</h4>
+                <a href="read_more_wooden_birthday.html" class="read-more">Read More</a>
+                <button class="order-btn" onclick="orderNow('Wooden Birthday Box')">Order Now</button>
+            </div>
         </div>
-        <div class="mobile-menu-icon" onclick="toggleMobileMenu()">
-            <i class="fas fa-bars"></i>
-        </div>
-    </nav>
-
-    <div class="mobile-menu">
-        <a href="#birthday">Birthday</a>
-        <a href="#anniversary">Anniversary</a>
-        <a href="#wedding">Wedding</a>
-        <a href="#corporate">Corporate</a>
-        <a href="#seasonal">Seasonal</a>
-        <a href="#custom">Custom</a>
-        <a href="#luxury">Luxury</a>
-    </div>
-
-    <div class="hero-section">
-        <h1>Welcome to Beyond Boxes</h1>
-        <p>Luxury Gift Boxes for Every Occasion</p>
-    </div>
-
-    <div class="main-products">
-        <!-- Products will be loaded here via JavaScript -->
-    </div>
-
-    <div class="settings-panel">
-        <h3>Settings</h3>
-        <div class="theme-options">
-            <h4>Theme</h4>
-            <button onclick="changeTheme('light')">Light</button>
-            <button onclick="changeTheme('dark')">Dark</button>
-        </div>
-        <div class="text-size">
-            <h4>Text Size</h4>
-            <button onclick="changeTextSize('decrease')">A-</button>
-            <button onclick="changeTextSize('increase')">A+</button>
-        </div>
-    </div>
-
+    </section>
+    
     <footer>
-        <div class="footer-content">
-            <div class="contact-info">
-                <h3>Contact Us</h3>
-                <p>📞 WhatsApp: +91 7406839266</p>
-                <p>📸 Instagram: @beyondboxess</p>
-                <p>📧 Email: beyondboxes1@gmail.com</p>
-            </div>
-            <div class="social-links">
-                <a href="https://wa.me/917406839266" target="_blank"><i class="fab fa-whatsapp"></i></a>
-                <a href="https://instagram.com/beyondboxess" target="_blank"><i class="fab fa-instagram"></i></a>
-                <a href="mailto:beyondboxes1@gmail.com"><i class="fas fa-envelope"></i></a>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2024 Beyond Boxes. All rights reserved.</p>
-        </div>
+        <p>Contact us: <br>
+        📞 WhatsApp: <a href="https://wa.me/917406839266">+91 7406839266</a><br>
+        📸 Instagram: <a href="https://instagram.com/beyondboxess">@beyondboxess</a><br>
+        📧 Email: <a href="mailto:beyondboxes1@gmail.com">beyondboxes1@gmail.com</a></p>
     </footer>
-
-    <script src="./script.js"></script>
 </body>
 </html>
-
