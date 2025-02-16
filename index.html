@@ -1,175 +1,189 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Beyond Boxes - Luxury Gift Solutions</title>
-    
-    <!-- CSS Links -->
-    <link rel="stylesheet" href="./css/style.css">
+    <title>Beyond Boxes - Luxury Gift Boxes</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-</head>
+    <style>
+        :root {
+            --deep-mocha: #4B3832;
+            --champagne-gold: #E6CBA8;
+            --velvet-burgundy: #722F37;
+            --midnight-blue: #1B1F3B;
+            --muted-emerald: #3A6351;
+            --pearl-white: #F8F3F1;
+        }
 
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background-color: var(--midnight-blue);
+            color: var(--champagne-gold);
+        }
+
+        .navbar {
+            background-color: var(--deep-mocha);
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 2rem;
+            color: var(--champagne-gold);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--champagne-gold);
+            text-decoration: none;
+            font-size: 1.1rem;
+        }
+
+        .settings-icon {
+            color: var(--champagne-gold);
+            cursor: pointer;
+        }
+
+        .main-products {
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .product-card {
+            background-color: var(--deep-mocha);
+            border-radius: 10px;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .product-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+
+        .order-button {
+            background-color: var(--velvet-burgundy);
+            color: var(--pearl-white);
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 1rem;
+        }
+
+        .settings-panel {
+            position: fixed;
+            right: -300px;
+            top: 0;
+            width: 300px;
+            height: 100vh;
+            background-color: var(--deep-mocha);
+            padding: 2rem;
+            transition: 0.3s;
+        }
+
+        .settings-panel.active {
+            right: 0;
+        }
+
+        .theme-options, .text-size {
+            margin-top: 1rem;
+        }
+    </style>
 </head>
 <body>
-    <!-- Preloader -->
-    <div id="preloader">
-        <div class="loader"></div>
-    </div>
-
-    <!-- Navigation -->
     <nav class="navbar">
-        <div class="logo">
-            <h1>Beyond Boxes</h1>
-            <span class="tagline">Luxury Gift Solutions</span>
-        </div>
-        
+        <a href="#" class="logo">Beyond Boxes</a>
         <div class="nav-links">
-            <a href="#home" class="active">Home</a>
-            <a href="#collections">Collections</a>
-            <a href="#about">About</a>
-            <a href="#contact">Contact</a>
-            <button id="settings-toggle" class="settings-btn">
-                <i class="fas fa-cog"></i>
-            </button>
-            <button id="cart-toggle" class="cart-btn">
-                <i class="fas fa-shopping-cart"></i>
-                <span class="cart-count">0</span>
-            </button>
-        </div>
-
-        <div class="mobile-menu">
-            <i class="fas fa-bars"></i>
+            <a href="#birthday">Birthday</a>
+            <a href="#anniversary">Anniversary</a>
+            <a href="#wedding">Wedding</a>
+            <a href="#corporate">Corporate</a>
+            <a href="#seasonal">Seasonal</a>
+            <a href="#custom">Custom</a>
+            <a href="#luxury">Luxury</a>
+            <i class="fas fa-cog settings-icon" onclick="toggleSettings()"></i>
         </div>
     </nav>
 
-    <!-- Settings Panel -->
-    <div id="settings-panel" class="settings-panel hidden">
-        <h3>Customize Experience</h3>
-        <div class="theme-toggle">
-            <span>Theme</span>
-            <button id="light-theme">Light</button>
-            <button id="dark-theme">Dark</button>
+    <div class="main-products">
+        <!-- Product cards will be generated by JavaScript -->
+    </div>
+
+    <div class="settings-panel">
+        <h3>Settings</h3>
+        <div class="theme-options">
+            <h4>Theme</h4>
+            <button onclick="changeTheme('light')">Light</button>
+            <button onclick="changeTheme('dark')">Dark</button>
         </div>
-        <div class="font-size">
-            <span>Text Size</span>
-            <button id="decrease-font">A-</button>
-            <button id="increase-font">A+</button>
+        <div class="text-size">
+            <h4>Text Size</h4>
+            <button onclick="changeTextSize('decrease')">A-</button>
+            <button onclick="changeTextSize('increase')">A+</button>
         </div>
     </div>
 
-    <!-- Shopping Cart Panel -->
-    <div id="cart-panel" class="cart-panel hidden">
-        <h3>Your Cart</h3>
-        <div id="cart-items" class="cart-items">
-            <!-- Cart items will be dynamically added here -->
-        </div>
-        <div class="cart-total">
-            <h4>Total: ₹<span id="cart-total">0</span></h4>
-            <button id="checkout-btn" class="checkout-btn">Proceed to Order</button>
-        </div>
-    </div>
+    <script>
+        const products = [
+            {
+                name: "Birthday Special",
+                image: "birthday-box.jpg",
+                subProducts: [
+                    "Premium Birthday Box",
+                    "Wooden Birthday Box",
+                    "Surprise Birthday Box",
+                    "Kids Birthday Box",
+                    "Customized Birthday Box"
+                ]
+            },
+            // Add other products similarly
+        ];
 
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="hero-content">
-            <h1>Crafting Memorable Moments</h1>
-            <p>Discover our exclusive collection of luxury gift boxes</p>
-            <a href="#collections" class="cta-button">Explore Collections</a>
-        </div>
-    </section>
+        function createProductCards() {
+            const mainProducts = document.querySelector('.main-products');
+            products.forEach(product => {
+                const card = document.createElement('div');
+                card.className = 'product-card';
+                card.innerHTML = `
+                    <img src="${product.image}" alt="${product.name}" class="product-image">
+                    <h3>${product.name}</h3>
+                    <button class="order-button" onclick="orderProduct('${product.name}')">Order Now</button>
+                    <button class="read-more" onclick="readMore('${product.name}')">Read More</button>
+                `;
+                mainProducts.appendChild(card);
+            });
+        }
 
-    <!-- Search Section -->
-    <section class="search-section">
-        <div class="search-container">
-            <input type="text" id="search-input" placeholder="Search collections...">
-            <button id="search-btn">
-                <i class="fas fa-search"></i>
-            </button>
-        </div>
-    </section>
+        function orderProduct(product) {
+            const message = encodeURIComponent(`I am interested in ${product}`);
+            window.open(`https://wa.me/917406839266?text=${message}`);
+        }
 
-    <!-- Collections Section -->
-    <section id="collections" class="collections">
-        <h2>Our Luxury Collections</h2>
-        <div class="categories-filter">
-            <button class="filter-btn active" data-category="all">All</button>
-            <button class="filter-btn" data-category="birthday">Birthday</button>
-            <button class="filter-btn" data-category="anniversary">Anniversary</button>
-            <button class="filter-btn" data-category="wedding">Wedding</button>
-            <button class="filter-btn" data-category="corporate">Corporate</button>
-            <button class="filter-btn" data-category="festival">Festival</button>
-            <button class="filter-btn" data-category="newborn">New Born</button>
-            <button class="filter-btn" data-category="custom">Custom</button>
-        </div>
-        <div class="product-grid">
-            <!-- Products will be dynamically added here -->
-        </div>
-    </section>
+        function toggleSettings() {
+            document.querySelector('.settings-panel').classList.toggle('active');
+        }
 
-    <!-- Contact Section -->
-    <section id="contact" class="contact">
-        <h2>Connect With Us</h2>
-        <div class="contact-grid">
-            <div class="contact-item">
-                <i class="fab fa-whatsapp"></i>
-                <p>WhatsApp</p>
-                <a href="tel:+917406839266">+91 7406839266</a>
-            </div>
-            <div class="contact-item">
-                <i class="fab fa-instagram"></i>
-                <p>Instagram</p>
-                <a href="https://instagram.com/beyondboxess" target="_blank">@beyondboxess</a>
-            </div>
-            <div class="contact-item">
-                <i class="far fa-envelope"></i>
-                <p>Email</p>
-                <a href="mailto:beyondboxes1@gmail.com">beyondboxes1@gmail.com</a>
-            </div>
-        </div>
-    </section>
+        // Add functions for theme and text size changes
 
-    <!-- Footer -->
-    <footer>
-        <div class="footer-content">
-            <div class="footer-logo">
-                <h3>Beyond Boxes</h3>
-                <p>Luxury Gift Solutions</p>
-            </div>
-            <div class="footer-links">
-                <h4>Quick Links</h4>
-                <a href="#collections">Collections</a>
-                <a href="#about">About Us</a>
-                <a href="#contact">Contact</a>
-            </div>
-            <div class="footer-social">
-                <h4>Follow Us</h4>
-                <a href="https://instagram.com/beyondboxess" target="_blank">
-                    <i class="fab fa-instagram"></i>
-                </a>
-                <a href="https://wa.me/917406839266" target="_blank">
-                    <i class="fab fa-whatsapp"></i>
-                </a>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2024 Beyond Boxes. All rights reserved.</p>
-        </div>
-    </footer>
-
-    <!-- Product Modal -->
-    <div id="product-modal" class="modal hidden">
-        <div class="modal-content">
-            <span class="close-modal">&times;</span>
-            <div class="modal-body">
-                <!-- Product details will be dynamically added here -->
-            </div>
-        </div>
-    </div>
-
-    <!-- Scripts -->
-    <script src="js/script.js"></script>
+        createProductCards();
+    </script>
 </body>
 </html>
