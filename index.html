@@ -1,15 +1,20 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Beyond Boxes - Luxury Gift Solutions</title>
+    <meta name="description" content="Exclusive luxury gift boxes for every special occasion. Customized gifts for birthdays, weddings, anniversaries, and more.">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="loader"></div>
+    </div>
+
     <!-- Navigation -->
     <nav class="navbar">
         <div class="logo">
@@ -24,6 +29,10 @@
             <a href="#contact">Contact</a>
             <button id="settings-toggle" class="settings-btn">
                 <i class="fas fa-cog"></i>
+            </button>
+            <button id="cart-toggle" class="cart-btn">
+                <i class="fas fa-shopping-cart"></i>
+                <span class="cart-count">0</span>
             </button>
         </div>
 
@@ -47,8 +56,20 @@
         </div>
     </div>
 
+    <!-- Shopping Cart Panel -->
+    <div id="cart-panel" class="cart-panel hidden">
+        <h3>Your Cart</h3>
+        <div id="cart-items" class="cart-items">
+            <!-- Cart items will be dynamically added here -->
+        </div>
+        <div class="cart-total">
+            <h4>Total: ₹<span id="cart-total">0</span></h4>
+            <button id="checkout-btn" class="checkout-btn">Proceed to Order</button>
+        </div>
+    </div>
+
     <!-- Hero Section -->
-    <section class="hero" id="home">
+    <section id="home" class="hero">
         <div class="hero-content">
             <h1>Crafting Memorable Moments</h1>
             <p>Discover our exclusive collection of luxury gift boxes</p>
@@ -56,19 +77,49 @@
         </div>
     </section>
 
+    <!-- Search Section -->
+    <section class="search-section">
+        <div class="search-container">
+            <input type="text" id="search-input" placeholder="Search collections...">
+            <button id="search-btn">
+                <i class="fas fa-search"></i>
+            </button>
+        </div>
+    </section>
+
     <!-- Collections Section -->
     <section id="collections" class="collections">
         <h2>Our Luxury Collections</h2>
-        <div class="product-grid"></div>
+        <div class="categories-filter">
+            <button class="filter-btn active" data-category="all">All</button>
+            <button class="filter-btn" data-category="birthday">Birthday</button>
+            <button class="filter-btn" data-category="anniversary">Anniversary</button>
+            <button class="filter-btn" data-category="wedding">Wedding</button>
+            <button class="filter-btn" data-category="corporate">Corporate</button>
+            <button class="filter-btn" data-category="festival">Festival</button>
+            <button class="filter-btn" data-category="newborn">New Born</button>
+            <button class="filter-btn" data-category="custom">Custom</button>
+        </div>
+        <div class="product-grid">
+            <!-- Products will be dynamically added here -->
+        </div>
     </section>
 
-    <!-- Product Modal -->
-    <div id="product-modal" class="modal hidden">
-        <div class="modal-content">
-            <span class="close-modal">&times;</span>
-            <div class="modal-body"></div>
+    <!-- About Section -->
+    <section id="about" class="about">
+        <h2>About Beyond Boxes</h2>
+        <div class="about-content">
+            <div class="about-text">
+                <p>At Beyond Boxes, we believe every celebration deserves to be extraordinary. Our luxury gift boxes are crafted with attention to detail, bringing joy and elegance to your special moments.</p>
+                <ul class="features">
+                    <li><i class="fas fa-gift"></i> Premium Quality Products</li>
+                    <li><i class="fas fa-paint-brush"></i> Customizable Designs</li>
+                    <li><i class="fas fa-truck"></i> Secure Delivery</li>
+                    <li><i class="fas fa-heart"></i> Made with Love</li>
+                </ul>
+            </div>
         </div>
-    </div>
+    </section>
 
     <!-- Contact Section -->
     <section id="contact" class="contact">
@@ -105,12 +156,28 @@
                 <a href="#about">About Us</a>
                 <a href="#contact">Contact</a>
             </div>
+            <div class="footer-social">
+                <h4>Follow Us</h4>
+                <a href="https://instagram.com/beyondboxess" target="_blank"><i class="fab fa-instagram"></i></a>
+                <a href="https://wa.me/917406839266" target="_blank"><i class="fab fa-whatsapp"></i></a>
+            </div>
         </div>
         <div class="footer-bottom">
             <p>&copy; 2024 Beyond Boxes. All rights reserved.</p>
         </div>
     </footer>
 
+    <!-- Product Modal -->
+    <div id="product-modal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="modal-body">
+                <!-- Product details will be dynamically added here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
     <script src="js/script.js"></script>
 </body>
 </html>
