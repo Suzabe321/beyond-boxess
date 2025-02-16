@@ -232,3 +232,96 @@ footer {
 .hidden {
     display: none;
 }
+/* Add these styles to your existing CSS */
+
+.sub-product-card {
+    background: var(--deep-mocha);
+    border-radius: 12px;
+    padding: 20px;
+    margin: 15px;
+    transition: transform 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.sub-product-card:hover {
+    transform: translateY(-5px);
+}
+
+.price-tag {
+    background: var(--velvet-burgundy);
+    padding: 10px;
+    border-radius: 8px;
+    margin: 15px 0;
+}
+
+.price-tag span {
+    font-size: 0.8em;
+    color: var(--champagne-gold);
+}
+
+.price-tag h5 {
+    font-size: 1.2em;
+    margin: 5px 0;
+    color: var(--pearl-white);
+}
+
+.includes-section {
+    background: rgba(75, 56, 50, 0.3);
+    padding: 15px;
+    border-radius: 8px;
+    margin: 15px 0;
+}
+
+.includes-section h6 {
+    color: var(--champagne-gold);
+    margin-bottom: 10px;
+}
+
+.includes-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+.includes-section li {
+    padding: 5px 0;
+    color: var(--pearl-white);
+    font-size: 0.9em;
+}
+
+.includes-section li:before {
+    content: "•";
+    color: var(--champagne-gold);
+    margin-right: 8px;
+}
+
+/* Image placeholder styles */
+.product-image img, .sub-product-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+    background: linear-gradient(45deg, var(--deep-mocha), var(--midnight-blue));
+}
+
+/* Enhanced modal styles */
+.modal-content {
+    width: 90%;
+    max-width: 1200px;
+    max-height: 90vh;
+    overflow-y: auto;
+    background: var(--midnight-blue);
+    padding: 30px;
+    border-radius: 15px;
+    position: relative;
+}
+
+.product-detail-content {
+    padding: 20px;
+}
+
+.sub-products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    margin-top: 30px;
+}
