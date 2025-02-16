@@ -216,3 +216,124 @@ window.addEventListener('scroll', () => {
         nav.classList.remove('scrolled');
     }
 });
+// Updated product data with detailed descriptions and prices
+const products = [
+    {
+        name: "Birthday Special",
+        description: "Transform birthday celebrations into unforgettable experiences with our luxury curated gift boxes. Each box is thoughtfully designed to bring joy and excitement to the special day.",
+        image: "images/birthday/main-birthday.jpg",
+        subProducts: [
+            {
+                name: "Premium Birthday Box",
+                description: "A luxurious collection featuring premium chocolates, personalized cards, scented candles, and custom decorative items.",
+                price: "₹3,999 - ₹5,999",
+                image: "images/birthday/premium-birthday.jpg",
+                includes: [
+                    "Premium Belgian Chocolates",
+                    "Personalized Birthday Card",
+                    "Luxury Scented Candle",
+                    "Custom Birthday Decorations",
+                    "Elegant Gift Wrapping"
+                ]
+            },
+            {
+                name: "Wooden Birthday Box",
+                description: "Handcrafted wooden box filled with premium gifts and keepsakes that can be treasured forever.",
+                price: "₹4,499 - ₹6,499",
+                image: "images/birthday/wooden-birthday.jpg",
+                includes: [
+                    "Handcrafted Wooden Box",
+                    "Premium Gift Items",
+                    "Photo Frame",
+                    "Personalized Message",
+                    "Luxury Treats"
+                ]
+            },
+            {
+                name: "Surprise Birthday Box",
+                description: "A mystery box filled with carefully curated surprises to make birthdays extra special.",
+                price: "₹2,999 - ₹4,499",
+                image: "images/birthday/surprise-birthday.jpg",
+                includes: [
+                    "Surprise Gift Items",
+                    "Birthday Accessories",
+                    "Sweet Treats",
+                    "Party Supplies",
+                    "Special Message Card"
+                ]
+            },
+            {
+                name: "Customized Birthday Box",
+                description: "Tailor-made gift box designed according to the recipient's interests and preferences.",
+                price: "₹4,999 - ₹7,999",
+                image: "images/birthday/custom-birthday.jpg",
+                includes: [
+                    "Personalized Gifts",
+                    "Custom Theme Items",
+                    "Favorite Treats",
+                    "Special Requests",
+                    "Premium Packaging"
+                ]
+            },
+            {
+                name: "Kids Birthday Box",
+                description: "Colorful and exciting gift box specially designed for children's birthdays.",
+                price: "₹2,499 - ₹3,999",
+                image: "images/birthday/kids-birthday.jpg",
+                includes: [
+                    "Age-Appropriate Toys",
+                    "Fun Activities",
+                    "Birthday Decorations",
+                    "Sweet Treats",
+                    "Party Favors"
+                ]
+            }
+        ]
+    },
+    // Similar detailed structure for other categories...
+];
+
+// Enhanced product detail modal function
+function showProductDetails(productName) {
+    const product = products.find(p => p.name === productName);
+    const modal = document.getElementById('product-modal');
+    const modalBody = modal.querySelector('.modal-body');
+
+    modalBody.innerHTML = `
+        <div class="product-detail-content">
+            <h2>${product.name}</h2>
+            <div class="product-main-image">
+                <img src="${product.image}" alt="${product.name}" 
+                     onerror="this.src='images/placeholder.jpg'">
+            </div>
+            <p class="product-description">${product.description}</p>
+            
+            <h3>Available Options</h3>
+            <div class="sub-products-grid">
+                ${product.subProducts.map(sub => `
+                    <div class="sub-product-card">
+                        <img src="${sub.image}" alt="${sub.name}" 
+                             onerror="this.src='images/placeholder.jpg'">
+                        <h4>${sub.name}</h4>
+                        <p class="sub-description">${sub.description}</p>
+                        <div class="price-tag">
+                            <span>Starting from</span>
+                            <h5>${sub.price}</h5>
+                        </div>
+                        <div class="includes-section">
+                            <h6>What's Included:</h6>
+                            <ul>
+                                ${sub.includes.map(item => `<li>${item}</li>`).join('')}
+                            </ul>
+                        </div>
+                        <button class="order-btn" onclick="orderNow('${product.name} - ${sub.name}')">
+                            Order Now
+                        </button>
+                    </div>
+                `).join('')}
+            </div>
+        </div>
+    `;
+
+    modal.classList.remove('hidden');
+}
