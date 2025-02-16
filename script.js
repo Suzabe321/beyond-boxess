@@ -1145,5 +1145,1371 @@ const cartManager = {
         });
     }
 };
+// Luxury Category and Enhanced Features
+{
+    id: 'luxury',
+    name: 'Luxury Premium',
+    image: 'https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&w=800&h=600&fit=crop',
+    description: 'Ultimate luxury gift experiences for special occasions',
+    category: 'luxury',
+    rating: 5.0,
+    reviews: 128,
+    details: {
+        deliveryTime: 'Premium 1-2 day delivery',
+        boxSize: 'Premium sizes available',
+        customizable: true,
+        freeDelivery: true,
+        exclusiveService: true
+    },
+    subProducts: [
+        {
+            id: 'diamond-collection',
+            name: 'Diamond Collection Box',
+            price: 9999,
+            image: 'https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&w=400&h=300&fit=crop',
+            description: 'The ultimate luxury gift experience',
+            contents: [
+                'Premium luxury items',
+                'Designer accessories',
+                'Exclusive collections',
+                'VIP packaging',
+                'Personal concierge service'
+            ],
+            specifications: {
+                boxSize: '18" x 16" x 12"',
+                weight: '3.0 kg',
+                deliveryTime: '1-2 business days',
+                customizable: true,
+                premium: true
+            }
+        }
+        // More luxury sub-products...
+    ]
+}
+
+// Enhanced Animation System
+const animationSystem = {
+    init() {
+        this.setupScrollAnimations();
+        this.setupHoverAnimations();
+        this.setupLoadingAnimations();
+    },
+
+    setupScrollAnimations() {
+        const animatedElements = document.querySelectorAll('.animate-on-scroll');
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    this.triggerAnimation(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '-50px'
+        });
+
+        animatedElements.forEach(element => observer.observe(element));
+    },
+
+    triggerAnimation(element) {
+        const animation = element.dataset.animation || 'fadeIn';
+        element.classList.add(animation);
+        element.classList.add('animated');
+    },
+
+    setupHoverAnimations() {
+        const hoverElements = document.querySelectorAll('.hover-animate');
+        
+        hoverElements.forEach(element => {
+            element.addEventListener('mouseenter', () => {
+                const animation = element.dataset.hoverAnimation || 'pulse';
+                element.classList.add(animation);
+            });
+
+            element.addEventListener('mouseleave', () => {
+                const animation = element.dataset.hoverAnimation || 'pulse';
+                element.classList.remove(animation);
+            });
+        });
+    },
+
+    setupLoadingAnimations() {
+        const loadingElements = document.querySelectorAll('.loading-animate');
+        
+        loadingElements.forEach(element => {
+            element.classList.add('loading');
+            
+            // Simulate loading completion
+            setTimeout(() => {
+                element.classList.remove('loading');
+                element.classList.add('loaded');
+            }, 1500);
+        });
+    }
+};
+
+// Enhanced Notification System
+const notificationSystem = {
+    types: {
+        SUCCESS: 'success',
+        ERROR: 'error',
+        INFO: 'info',
+        WARNING: 'warning'
+    },
+
+    show(message, type = this.types.SUCCESS, duration = 3000) {
+        const notification = document.createElement('div');
+        notification.className = `notification ${type}`;
+        
+        const icon = this.getIconForType(type);
+        
+        notification.innerHTML = `
+            <div class="notification-content">
+                <i class="fas ${icon}"></i>
+                <p>${message}</p>
+            </div>
+            <div class="notification-progress"></div>
+        `;
+
+        document.body.appendChild(notification);
+
+        // Add animation classes
+        setTimeout(() => notification.classList.add('show'), 10);
+
+        // Setup progress bar
+        const progress = notification.querySelector('.notification-progress');
+        progress.style.transition = `width ${duration}ms linear`;
+        progress.style.width = '0%';
+
+        // Remove notification after duration
+        setTimeout(() => {
+            notification.classList.remove('show');
+            setTimeout(() => notification.remove(), 300);
+        }, duration);
+    },
+
+    getIconForType(type) {
+        switch(type) {
+            case this.types.SUCCESS:
+                return 'fa-check-circle';
+            case this.types.ERROR:
+                return 'fa-exclamation-circle';
+            case this.types.WARNING:
+                return 'fa-exclamation-triangle';
+            case this.types.INFO:
+                return 'fa-info-circle';
+            default:
+                return 'fa-bell';
+        }
+    },
+
+    success(message, duration) {
+        this.show(message, this.types.SUCCESS, duration);
+    },
+
+    error(message, duration) {
+        this.show(message, this.types.ERROR, duration);
+    },
+
+    warning(message, duration) {
+        this.show(message, this.types.WARNING, duration);
+    },
+
+    info(message, duration) {
+        this.show(message, this.types.INFO, duration);
+    }
+};
+
+// Enhanced Loading System
+const loadingSystem = {
+    show(message = 'Loading...') {
+        const loader = document.createElement('div');
+        loader.className = 'loading-overlay';
+        loader.innerHTML = `
+            <div class="loading-content">
+                <div class="loading-spinner"></div>
+                <p>${message}</p>
+            </div>
+        `;
+        document.body.appendChild(loader);
+        document.body.style.overflow = 'hidden';
+    },
+
+    hide() {
+        const loader = document.querySelector('.loading-overlay');
+        if (loader) {
+            loader.classList.add('fade-out');
+            setTimeout(() => {
+                loader.remove();
+                document.body.style.overflow = 'auto';
+            }, 300);
+        }
+    }
+};
+
+// Initialize all systems
+document.addEventListener('DOMContentLoaded', () => {
+    productManager.init();
+    cartManager.init();
+    animationSystem.init();
+    
+    // Show loading screen
+    loadingSystem.show('Loading your luxury experience...');
+    
+    // Hide loading screen after content is loaded
+    window.addEventListener('load', () => {
+        setTimeout(() => {
+            loadingSystem.hide();
+            notificationSystem.success('Welcome to Beyond Boxes!');
+        }, 1000);
+    });
+});
+// Custom Gift Category
+{
+    id: 'custom',
+    name: 'Custom Collection',
+    image: 'https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&w=800&h=600&fit=crop',
+    description: 'Create your perfect gift box with personalized items',
+    category: 'custom',
+    rating: 4.9,
+    reviews: 173,
+    details: {
+        deliveryTime: '4-5 business days',
+        boxSize: 'Customizable',
+        customizable: true,
+        freeDelivery: true
+    },
+    subProducts: [
+        {
+            id: 'premium-custom',
+            name: 'Premium Custom Box',
+            price: 4999,
+            image: 'https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&w=400&h=300&fit=crop',
+            description: 'Fully customizable premium gift box',
+            customizationOptions: [
+                {
+                    type: 'box-size',
+                    name: 'Box Size',
+                    options: ['Small', 'Medium', 'Large']
+                },
+                {
+                    type: 'box-color',
+                    name: 'Box Color',
+                    options: ['Classic Black', 'Royal Blue', 'Rose Gold', 'Pearl White']
+                },
+                {
+                    type: 'ribbon',
+                    name: 'Ribbon Style',
+                    options: ['Satin', 'Velvet', 'Gold Trim', 'Silver Trim']
+                }
+            ],
+            contents: [
+                'Choice of premium items',
+                'Personalized message card',
+                'Custom packaging',
+                'Luxury wrapping',
+                'Special handling'
+            ]
+        }
+    ]
+}
+
+// Custom Box Builder
+const customBoxBuilder = {
+    currentCustomization: {
+        boxSize: null,
+        boxColor: null,
+        ribbon: null,
+        items: [],
+        message: '',
+        totalPrice: 0
+    },
+
+    showCustomizer(productId) {
+        const product = products.find(p => p.id === productId);
+        if (!product) return;
+
+        const modal = document.createElement('div');
+        modal.className = 'modal customizer-modal';
+        modal.innerHTML = `
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Create Your Custom Box</h2>
+                    <button class="close-button" onclick="modalManager.close()">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="customizer-content">
+                    <div class="customizer-steps">
+                        <div class="step active" data-step="1">
+                            <span class="step-number">1</span>
+                            <span class="step-name">Box Details</span>
+                        </div>
+                        <div class="step" data-step="2">
+                            <span class="step-number">2</span>
+                            <span class="step-name">Select Items</span>
+                        </div>
+                        <div class="step" data-step="3">
+                            <span class="step-number">3</span>
+                            <span class="step-name">Personalization</span>
+                        </div>
+                        <div class="step" data-step="4">
+                            <span class="step-number">4</span>
+                            <span class="step-name">Review</span>
+                        </div>
+                    </div>
+                    <div class="customizer-stage">
+                        ${this.renderStage1(product)}
+                    </div>
+                    <div class="customizer-controls">
+                        <button class="back-btn" disabled>Back</button>
+                        <button class="next-btn">Next</button>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        document.body.appendChild(modal);
+        this.setupCustomizerEvents(modal);
+    },
+
+    renderStage1(product) {
+        return `
+            <div class="customizer-stage-content" data-stage="1">
+                <h3>Choose Your Box Style</h3>
+                <div class="box-options">
+                    ${product.subProducts[0].customizationOptions.map(option => `
+                        <div class="option-group">
+                            <h4>${option.name}</h4>
+                            <div class="options">
+                                ${option.options.map(choice => `
+                                    <div class="option" data-type="${option.type}" data-value="${choice}">
+                                        <div class="option-preview ${option.type}">
+                                            <span>${choice}</span>
+                                        </div>
+                                        <div class="option-label">${choice}</div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            </div>
+        `;
+    },
+
+    setupCustomizerEvents(modal) {
+        const nextBtn = modal.querySelector('.next-btn');
+        const backBtn = modal.querySelector('.back-btn');
+        let currentStep = 1;
+
+        nextBtn.addEventListener('click', () => {
+            if (currentStep < 4) {
+                if (this.validateStep(currentStep)) {
+                    currentStep++;
+                    this.updateCustomizerStage(modal, currentStep);
+                } else {
+                    notificationSystem.warning('Please complete all selections');
+                }
+            } else {
+                this.finishCustomization();
+            }
+        });
+
+        backBtn.addEventListener('click', () => {
+            if (currentStep > 1) {
+                currentStep--;
+                this.updateCustomizerStage(modal, currentStep);
+            }
+        });
+
+        // Option selection events
+        modal.querySelectorAll('.option').forEach(option => {
+            option.addEventListener('click', () => {
+                const type = option.dataset.type;
+                const value = option.dataset.value;
+                
+                // Remove active class from other options in the same group
+                modal.querySelectorAll(`.option[data-type="${type}"]`)
+                    .forEach(opt => opt.classList.remove('active'));
+                
+                option.classList.add('active');
+                this.currentCustomization[type] = value;
+                
+                // Update preview
+                this.updateBoxPreview();
+            });
+        });
+    },
+
+    updateCustomizerStage(modal, step) {
+        const stages = {
+            1: this.renderStage1,
+            2: this.renderStage2,
+            3: this.renderStage3,
+            4: this.renderStage4
+        };
+
+        // Update steps indicator
+        modal.querySelectorAll('.step').forEach(stepEl => {
+            stepEl.classList.toggle('active', parseInt(stepEl.dataset.step) === step);
+            stepEl.classList.toggle('completed', parseInt(stepEl.dataset.step) < step);
+        });
+
+        // Update buttons
+        const backBtn = modal.querySelector('.back-btn');
+        const nextBtn = modal.querySelector('.next-btn');
+        backBtn.disabled = step === 1;
+        nextBtn.textContent = step === 4 ? 'Finish' : 'Next';
+
+        // Update content
+        const stage = modal.querySelector('.customizer-stage');
+        stage.innerHTML = stages[step].call(this);
+    },
+
+    updateBoxPreview() {
+        // Update 3D box preview based on current customization
+        const preview = document.querySelector('.box-preview');
+        if (preview) {
+            preview.style.backgroundColor = this.getColorValue(this.currentCustomization.boxColor);
+            // Update other visual elements...
+        }
+    },
+
+    validateStep(step) {
+        switch(step) {
+            case 1:
+                return this.currentCustomization.boxSize && 
+                       this.currentCustomization.boxColor && 
+                       this.currentCustomization.ribbon;
+            case 2:
+                return this.currentCustomization.items.length > 0;
+            case 3:
+                return this.currentCustomization.message.length > 0;
+            default:
+                return true;
+        }
+    },
+
+    finishCustomization() {
+        const message = `Custom Box Order:\n` +
+            `Size: ${this.currentCustomization.boxSize}\n` +
+            `Color: ${this.currentCustomization.boxColor}\n` +
+            `Ribbon: ${this.currentCustomization.ribbon}\n` +
+            `Items: ${this.currentCustomization.items.join(', ')}\n` +
+            `Message: ${this.currentCustomization.message}\n` +
+            `Total: ${utils.formatPrice(this.currentCustomization.totalPrice)}`;
+
+        window.open(utils.createWhatsAppLink(message));
+        modalManager.close();
+        notificationSystem.success('Your custom box order has been sent!');
+    }
+};
+
+// Continue with more features...
+// Custom Box Builder (Remaining Stages)
+const customBoxBuilder = {
+    // ... (previous code remains the same)
+
+    renderStage2(product) {
+        return `
+            <div class="customizer-stage-content" data-stage="2">
+                <h3>Select Items for Your Box</h3>
+                <div class="items-selector">
+                    <div class="categories-list">
+                        <div class="category-items">
+                            <h4>Premium Items</h4>
+                            <div class="items-grid">
+                                ${this.getAvailableItems().map(item => `
+                                    <div class="item-card" data-item-id="${item.id}">
+                                        <img src="${item.image}" alt="${item.name}">
+                                        <div class="item-info">
+                                            <h5>${item.name}</h5>
+                                            <p>${item.description}</p>
+                                            <span class="price">+${utils.formatPrice(item.price)}</span>
+                                        </div>
+                                        <button class="add-item-btn" onclick="customBoxBuilder.toggleItem('${item.id}')">
+                                            <i class="fas fa-plus"></i>
+                                        </button>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="selected-items">
+                        <h4>Your Selected Items</h4>
+                        <div class="selected-items-list">
+                            ${this.renderSelectedItems()}
+                        </div>
+                        <div class="total-price">
+                            Total: ${utils.formatPrice(this.calculateTotal())}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+    },
+
+    renderStage3() {
+        return `
+            <div class="customizer-stage-content" data-stage="3">
+                <h3>Personalize Your Box</h3>
+                <div class="personalization-options">
+                    <div class="message-section">
+                        <h4>Add Your Message</h4>
+                        <textarea 
+                            class="message-input" 
+                            placeholder="Enter your personal message..."
+                            maxlength="200"
+                            onkeyup="customBoxBuilder.updateMessage(this.value)"
+                        >${this.currentCustomization.message}</textarea>
+                        <span class="character-count">
+                            <span class="current">0</span>/200 characters
+                        </span>
+                    </div>
+                    <div class="card-options">
+                        <h4>Choose Card Style</h4>
+                        <div class="card-styles">
+                            ${this.getCardStyles().map(style => `
+                                <div class="card-style ${style.id === this.currentCustomization.cardStyle ? 'selected' : ''}"
+                                     onclick="customBoxBuilder.selectCardStyle('${style.id}')">
+                                    <img src="${style.preview}" alt="${style.name}">
+                                    <span>${style.name}</span>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                    <div class="delivery-options">
+                        <h4>Delivery Preferences</h4>
+                        <div class="delivery-date">
+                            <label>Preferred Delivery Date</label>
+                            <input type="date" 
+                                   min="${this.getMinDeliveryDate()}" 
+                                   onchange="customBoxBuilder.setDeliveryDate(this.value)">
+                        </div>
+                        <div class="delivery-time">
+                            <label>Preferred Time Slot</label>
+                            <select onchange="customBoxBuilder.setDeliveryTime(this.value)">
+                                <option value="morning">Morning (9 AM - 12 PM)</option>
+                                <option value="afternoon">Afternoon (12 PM - 4 PM)</option>
+                                <option value="evening">Evening (4 PM - 7 PM)</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+    },
+
+    renderStage4() {
+        return `
+            <div class="customizer-stage-content" data-stage="4">
+                <h3>Review Your Custom Box</h3>
+                <div class="review-container">
+                    <div class="box-preview">
+                        ${this.render3DPreview()}
+                    </div>
+                    <div class="order-summary">
+                        <h4>Order Summary</h4>
+                        <div class="summary-details">
+                            <div class="summary-item">
+                                <span>Box Style:</span>
+                                <span>${this.currentCustomization.boxSize} - ${this.currentCustomization.boxColor}</span>
+                            </div>
+                            <div class="summary-item">
+                                <span>Ribbon:</span>
+                                <span>${this.currentCustomization.ribbon}</span>
+                            </div>
+                            <div class="summary-item">
+                                <span>Selected Items:</span>
+                                <ul>
+                                    ${this.currentCustomization.items.map(item => `
+                                        <li>${item.name} - ${utils.formatPrice(item.price)}</li>
+                                    `).join('')}
+                                </ul>
+                            </div>
+                            <div class="summary-item">
+                                <span>Message:</span>
+                                <p class="message-preview">${this.currentCustomization.message}</p>
+                            </div>
+                            <div class="summary-item">
+                                <span>Delivery:</span>
+                                <span>${this.formatDeliveryDateTime()}</span>
+                            </div>
+                            <div class="total">
+                                <span>Total:</span>
+                                <span>${utils.formatPrice(this.calculateTotal())}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="terms-agreement">
+                    <label>
+                        <input type="checkbox" onchange="customBoxBuilder.setAgreedToTerms(this.checked)">
+                        I agree to the terms and conditions
+                    </label>
+                </div>
+            </div>
+        `;
+    },
+
+    // Helper functions for the custom box builder
+    getAvailableItems() {
+        return [
+            {
+                id: 'chocolate-premium',
+                name: 'Premium Chocolate Selection',
+                description: 'Assorted luxury chocolates',
+                price: 999,
+                image: 'images/items/chocolate-premium.jpg'
+            },
+            // Add more available items...
+        ];
+    },
+
+    calculateTotal() {
+        const basePrice = 1999; // Base box price
+        const itemsTotal = this.currentCustomization.items.reduce((total, item) => total + item.price, 0);
+        return basePrice + itemsTotal;
+    },
+
+    // Continue with more helper functions...
+};
+
+// Image Gallery System
+const imageGallery = {
+    showGallery(productId) {
+        const product = products.find(p => p.id === productId);
+        if (!product) return;
+
+        const modal = document.createElement('div');
+        modal.className = 'modal gallery-modal';
+        modal.innerHTML = `
+            <div class="modal-content">
+                <div class="gallery-container">
+                    <div class="main-image">
+                        <img src="${product.image}" alt="${product.name}">
+                    </div>
+                    <div class="thumbnail-container">
+                        ${this.getThumbnails(product)}
+                    </div>
+                </div>
+                <button class="close-button" onclick="modalManager.close()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        `;
+
+        document.body.appendChild(modal);
+        this.setupGalleryEvents(modal);
+    }
+    // Continue with gallery functions...
+};
+// Image Zoom and Gallery System
+const imageSystem = {
+    init() {
+        this.setupImageZoom();
+        this.setupLazyLoading();
+    },
+
+    setupImageZoom() {
+        document.querySelectorAll('.zoomable-image').forEach(image => {
+            image.addEventListener('mousemove', (e) => {
+                const { left, top, width, height } = image.getBoundingClientRect();
+                const x = (e.clientX - left) / width * 100;
+                const y = (e.clientY - top) / height * 100;
+                
+                image.style.transformOrigin = `${x}% ${y}%`;
+            });
+
+            image.addEventListener('mouseenter', () => {
+                image.style.transform = 'scale(2)';
+            });
+
+            image.addEventListener('mouseleave', () => {
+                image.style.transform = 'scale(1)';
+            });
+        });
+    },
+
+    setupLazyLoading() {
+        const imageObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    img.src = img.dataset.src;
+                    img.classList.add('loaded');
+                    observer.unobserve(img);
+                }
+            });
+        });
+
+        document.querySelectorAll('img[data-src]').forEach(img => {
+            imageObserver.observe(img);
+        });
+    }
+};
+
+// Order Processing System
+const orderProcessor = {
+    async processOrder(orderData) {
+        try {
+            loadingSystem.show('Processing your order...');
+
+            // Validate order data
+            const validationResult = this.validateOrder(orderData);
+            if (!validationResult.valid) {
+                throw new Error(validationResult.message);
+            }
+
+            // Format WhatsApp message
+            const message = this.formatOrderMessage(orderData);
+
+            // Save order to local storage
+            this.saveOrderToHistory(orderData);
+
+            // Open WhatsApp with formatted message
+            window.open(utils.createWhatsAppLink(message));
+
+            notificationSystem.success('Order processed successfully!');
+            return true;
+        } catch (error) {
+            notificationSystem.error(error.message);
+            return false;
+        } finally {
+            loadingSystem.hide();
+        }
+    },
+
+    validateOrder(orderData) {
+        if (!orderData.items || orderData.items.length === 0) {
+            return { valid: false, message: 'Please select at least one item' };
+        }
+
+        if (!orderData.deliveryDetails) {
+            return { valid: false, message: 'Please provide delivery details' };
+        }
+
+        return { valid: true };
+    },
+
+    formatOrderMessage(orderData) {
+        const items = orderData.items.map(item => 
+            `- ${item.name} (${utils.formatPrice(item.price)})`
+        ).join('\n');
+
+        return `
+New Order from Beyond Boxes:
+
+Items:
+${items}
+
+Delivery Details:
+Name: ${orderData.deliveryDetails.name}
+Address: ${orderData.deliveryDetails.address}
+Date: ${orderData.deliveryDetails.date}
+Time: ${orderData.deliveryDetails.time}
+
+Special Instructions: ${orderData.specialInstructions || 'None'}
+
+Total: ${utils.formatPrice(orderData.total)}
+        `.trim();
+    },
+
+    saveOrderToHistory(orderData) {
+        const orderHistory = JSON.parse(localStorage.getItem('orderHistory') || '[]');
+        orderHistory.push({
+            ...orderData,
+            orderId: this.generateOrderId(),
+            orderDate: new Date().toISOString()
+        });
+        localStorage.setItem('orderHistory', JSON.stringify(orderHistory));
+    },
+
+    generateOrderId() {
+        return 'BB-' + Date.now().toString(36).toUpperCase();
+    }
+};
+
+// Enhanced Product Display System
+const productDisplayManager = {
+    renderProduct(product) {
+        return `
+            <div class="product-card" data-product-id="${product.id}">
+                <div class="product-image-container">
+                    <img 
+                        class="zoomable-image"
+                        data-src="${product.image}" 
+                        alt="${product.name}"
+                        loading="lazy"
+                    >
+                    <div class="product-badges">
+                        ${product.details.freeDelivery ? '<span class="badge free-delivery">Free Delivery</span>' : ''}
+                        ${product.details.customizable ? '<span class="badge customizable">Customizable</span>' : ''}
+                    </div>
+                </div>
+                <div class="product-info">
+                    <h3>${product.name}</h3>
+                    <div class="product-rating">
+                        ${this.generateRatingStars(product.rating)}
+                        <span class="review-count">(${product.reviews} reviews)</span>
+                    </div>
+                    <p class="product-description">${product.description}</p>
+                    <div class="product-details">
+                        <span><i class="fas fa-box"></i> ${product.details.boxSize}</span>
+                        <span><i class="fas fa-truck"></i> ${product.details.deliveryTime}</span>
+                    </div>
+                    <div class="product-actions">
+                        <button class="view-options-btn" onclick="productManager.showSubProducts('${product.id}')">
+                            View Options
+                        </button>
+                        <button class="quick-view-btn" onclick="productManager.quickView('${product.id}')">
+                            Quick View
+                        </button>
+                    </div>
+                </div>
+            </div>
+        `;
+    },
+
+    generateRatingStars(rating) {
+        const fullStars = Math.floor(rating);
+        const hasHalfStar = rating % 1 !== 0;
+        const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
+
+        return `
+            ${'<i class="fas fa-star"></i>'.repeat(fullStars)}
+            ${hasHalfStar ? '<i class="fas fa-star-half-alt"></i>' : ''}
+            ${'<i class="far fa-star"></i>'.repeat(emptyStars)}
+        `;
+    }
+};
+
+// Initialize all systems
+document.addEventListener('DOMContentLoaded', () => {
+    productManager.init();
+    cartManager.init();
+    imageSystem.init();
+    
+    // Show welcome message
+    setTimeout(() => {
+        notificationSystem.success('Welcome to Beyond Boxes!');
+    }, 1000);
+});
+
+// Handle page visibility
+document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'visible') {
+        // Refresh dynamic content
+        productManager.refreshProducts();
+    }
+});
+
+// Handle offline/online status
+window.addEventListener('online', () => {
+    notificationSystem.success('Back online!');
+});
+
+window.addEventListener('offline', () => {
+    notificationSystem.warning('You are currently offline');
+});
+// Review System
+const reviewSystem = {
+    reviews: {},
+
+    init() {
+        this.loadReviews();
+        this.setupReviewButtons();
+    },
+
+    loadReviews() {
+        this.reviews = JSON.parse(localStorage.getItem('productReviews') || '{}');
+    },
+
+    addReview(productId, review) {
+        if (!this.reviews[productId]) {
+            this.reviews[productId] = [];
+        }
+        
+        const newReview = {
+            id: Date.now(),
+            ...review,
+            date: new Date().toISOString(),
+            verified: true
+        };
+
+        this.reviews[productId].unshift(newReview);
+        this.saveReviews();
+        this.updateProductRating(productId);
+    },
+
+    showReviewModal(productId) {
+        const product = products.find(p => p.id === productId);
+        if (!product) return;
+
+        const modal = document.createElement('div');
+        modal.className = 'modal review-modal';
+        modal.innerHTML = `
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Reviews for ${product.name}</h3>
+                    <button class="close-button" onclick="modalManager.close()">×</button>
+                </div>
+                <div class="reviews-container">
+                    <div class="review-summary">
+                        <div class="average-rating">
+                            <span class="rating-number">${product.rating}</span>
+                            <div class="stars">
+                                ${this.generateStars(product.rating)}
+                            </div>
+                            <span class="review-count">${product.reviews} reviews</span>
+                        </div>
+                        <button class="write-review-btn" onclick="reviewSystem.showReviewForm('${productId}')">
+                            Write a Review
+                        </button>
+                    </div>
+                    <div class="reviews-list">
+                        ${this.renderReviews(productId)}
+                    </div>
+                </div>
+            </div>
+        `;
+
+        document.body.appendChild(modal);
+    },
+
+    renderReviews(productId) {
+        const productReviews = this.reviews[productId] || [];
+        
+        if (productReviews.length === 0) {
+            return `
+                <div class="no-reviews">
+                    <i class="fas fa-comments"></i>
+                    <p>No reviews yet. Be the first to review this product!</p>
+                </div>
+            `;
+        }
+
+        return productReviews.map(review => `
+            <div class="review-item">
+                <div class="review-header">
+                    <div class="reviewer-info">
+                        <span class="reviewer-name">${review.name}</span>
+                        ${review.verified ? '<span class="verified-badge">Verified Purchase</span>' : ''}
+                    </div>
+                    <div class="review-rating">
+                        ${this.generateStars(review.rating)}
+                    </div>
+                </div>
+                <div class="review-content">
+                    <h4>${review.title}</h4>
+                    <p>${review.comment}</p>
+                </div>
+                <div class="review-footer">
+                    <span class="review-date">${this.formatDate(review.date)}</span>
+                    <div class="review-actions">
+                        <button onclick="reviewSystem.likeReview('${review.id}')">
+                            <i class="far fa-thumbs-up"></i> ${review.likes || 0}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        `).join('');
+    }
+};
+
+// Final TouchPoints Manager
+const touchPointManager = {
+    init() {
+        this.setupScrollEffects();
+        this.setupHoverEffects();
+        this.setupInteractions();
+    },
+
+    setupScrollEffects() {
+        const elements = document.querySelectorAll('.animate-on-scroll');
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animated');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        });
+
+        elements.forEach(element => observer.observe(element));
+    },
+
+    setupHoverEffects() {
+        document.querySelectorAll('.product-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.classList.add('hover');
+            });
+
+            card.addEventListener('mouseleave', () => {
+                card.classList.remove('hover');
+            });
+        });
+    },
+
+    setupInteractions() {
+        // Add to wishlist interaction
+        document.querySelectorAll('.wishlist-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                btn.classList.toggle('active');
+                
+                if (btn.classList.contains('active')) {
+                    this.showWishlistAnimation(btn);
+                }
+            });
+        });
+
+        // Quick view interaction
+        document.querySelectorAll('.quick-view-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const rect = btn.getBoundingClientRect();
+                this.showQuickViewAnimation(rect);
+            });
+        });
+    },
+
+    showWishlistAnimation(button) {
+        const heart = document.createElement('div');
+        heart.className = 'floating-heart';
+        heart.innerHTML = '❤️';
+        
+        const rect = button.getBoundingClientRect();
+        heart.style.left = `${rect.left}px`;
+        heart.style.top = `${rect.top}px`;
+        
+        document.body.appendChild(heart);
+        
+        setTimeout(() => heart.remove(), 1000);
+    }
+};
+
+// Initialize everything
+document.addEventListener('DOMContentLoaded', () => {
+    // Initialize all systems
+    productManager.init();
+    cartManager.init();
+    reviewSystem.init();
+    touchPointManager.init();
+    imageSystem.init();
+
+    // Show loading screen
+    loadingSystem.show('Loading your luxury experience...');
+
+    // Initialize the website
+    Promise.all([
+        // Load necessary resources
+        loadFonts(),
+        loadImages(),
+        initializeProducts()
+    ])
+    .then(() => {
+        loadingSystem.hide();
+        notificationSystem.success('Welcome to Beyond Boxes!');
+    })
+    .catch(error => {
+        loadingSystem.hide();
+        notificationSystem.error('Something went wrong. Please refresh the page.');
+        console.error('Initialization error:', error);
+    });
+});
+
+// Final utility functions
+function loadFonts() {
+    return new Promise((resolve) => {
+        // Load custom fonts if needed
+        resolve();
+    });
+}
+
+function loadImages() {
+    return new Promise((resolve) => {
+        // Preload critical images
+        resolve();
+    });
+}
+
+function initializeProducts() {
+    return new Promise((resolve) => {
+        // Initialize product data
+        resolve();
+    });
+}
+// Complete Product Data
+const products = [
+    {
+        id: 'birthday',
+        name: 'Birthday Special',
+        image: 'https://images.unsplash.com/photo-1577998474517-7eeeed4e448a',
+        description: 'Make birthdays extraordinary with our specially curated gift boxes',
+        category: 'celebration',
+        rating: 4.8,
+        reviews: 245,
+        details: {
+            deliveryTime: '2-3 business days',
+            boxSize: '12" x 10" x 6"',
+            customizable: true,
+            freeDelivery: true
+        },
+        subProducts: [
+            {
+                id: 'premium-birthday',
+                name: 'Premium Birthday Box',
+                price: 2999,
+                image: 'https://images.unsplash.com/photo-1549465220-1a8b9238cd48',
+                description: 'Luxury items with premium packaging'
+            },
+            // ... other sub-products
+        ]
+    },
+    // ... other main products
+];
+
+// Complete Shopping Cart System
+const shoppingCart = {
+    items: [],
+    
+    init() {
+        this.loadCart();
+        this.updateCartDisplay();
+    },
+
+    loadCart() {
+        const savedCart = localStorage.getItem('cart');
+        if (savedCart) {
+            this.items = JSON.parse(savedCart);
+        }
+    },
+
+    addItem(productId, quantity = 1) {
+        const existingItem = this.items.find(item => item.id === productId);
+        if (existingItem) {
+            existingItem.quantity += quantity;
+        } else {
+            this.items.push({ id: productId, quantity });
+        }
+        this.saveCart();
+        this.updateCartDisplay();
+    },
+
+    removeItem(productId) {
+        this.items = this.items.filter(item => item.id !== productId);
+        this.saveCart();
+        this.updateCartDisplay();
+    },
+
+    updateQuantity(productId, quantity) {
+        const item = this.items.find(item => item.id === productId);
+        if (item) {
+            item.quantity = Math.max(0, quantity);
+            if (item.quantity === 0) {
+                this.removeItem(productId);
+            } else {
+                this.saveCart();
+                this.updateCartDisplay();
+            }
+        }
+    },
+
+    saveCart() {
+        localStorage.setItem('cart', JSON.stringify(this.items));
+    },
+
+    updateCartDisplay() {
+        const cartCount = document.querySelector('.cart-count');
+        const totalItems = this.items.reduce((sum, item) => sum + item.quantity, 0);
+        cartCount.textContent = totalItems;
+        cartCount.style.display = totalItems > 0 ? 'block' : 'none';
+    },
+
+    showCart() {
+        modalManager.show('cart', this.renderCart());
+    },
+
+    renderCart() {
+        if (this.items.length === 0) {
+            return `
+                <div class="empty-cart">
+                    <i class="fas fa-shopping-cart"></i>
+                    <p>Your cart is empty</p>
+                    <button onclick="modalManager.close()">Continue Shopping</button>
+                </div>
+            `;
+        }
+
+        return `
+            <div class="cart-items">
+                ${this.items.map(item => this.renderCartItem(item)).join('')}
+            </div>
+            <div class="cart-summary">
+                <div class="cart-total">
+                    <span>Total:</span>
+                    <span>${this.getFormattedTotal()}</span>
+                </div>
+                <button class="checkout-btn" onclick="shoppingCart.checkout()">
+                    Proceed to Checkout
+                </button>
+            </div>
+        `;
+    }
+};
+
+// Form Validation System
+const formValidator = {
+    validateForm(formData, rules) {
+        const errors = {};
+
+        for (const [field, value] of Object.entries(formData)) {
+            if (rules[field]) {
+                const fieldErrors = this.validateField(value, rules[field]);
+                if (fieldErrors.length > 0) {
+                    errors[field] = fieldErrors;
+                }
+            }
+        }
+
+        return {
+            valid: Object.keys(errors).length === 0,
+            errors
+        };
+    },
+
+    validateField(value, rules) {
+        const errors = [];
+
+        rules.forEach(rule => {
+            switch (rule.type) {
+                case 'required':
+                    if (!value || value.trim() === '') {
+                        errors.push(rule.message || 'This field is required');
+                    }
+                    break;
+
+                case 'email':
+                    if (!this.isValidEmail(value)) {
+                        errors.push(rule.message || 'Invalid email address');
+                    }
+                    break;
+
+                case 'phone':
+                    if (!this.isValidPhone(value)) {
+                        errors.push(rule.message || 'Invalid phone number');
+                    }
+                    break;
+
+                case 'minLength':
+                    if (value.length < rule.value) {
+                        errors.push(rule.message || `Minimum ${rule.value} characters required`);
+                    }
+                    break;
+
+                case 'maxLength':
+                    if (value.length > rule.value) {
+                        errors.push(rule.message || `Maximum ${rule.value} characters allowed`);
+                    }
+                    break;
+            }
+        });
+
+        return errors;
+    },
+
+    isValidEmail(email) {
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    },
+
+    isValidPhone(phone) {
+        return /^\+?[\d\s-]{10,}$/.test(phone);
+    }
+};
+
+// Complete Modal System
+const modalManager = {
+    activeModals: [],
+
+    show(type, content) {
+        const modal = document.createElement('div');
+        modal.className = `modal ${type}-modal`;
+        modal.innerHTML = `
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>${this.getModalTitle(type)}</h3>
+                    <button class="close-button" onclick="modalManager.close()">×</button>
+                </div>
+                <div class="modal-body">
+                    ${content}
+                </div>
+            </div>
+        `;
+
+        document.body.appendChild(modal);
+        this.activeModals.push(modal);
+
+        // Prevent body scroll
+        document.body.style.overflow = 'hidden';
+
+        // Add animation
+        setTimeout(() => modal.classList.add('active'), 10);
+
+        // Setup event listeners
+        this.setupModalEvents(modal);
+    },
+
+    close() {
+        const modal = this.activeModals.pop();
+        if (modal) {
+            modal.classList.remove('active');
+            setTimeout(() => {
+                modal.remove();
+                if (this.activeModals.length === 0) {
+                    document.body.style.overflow = '';
+                }
+            }, 300);
+        }
+    },
+
+    setupModalEvents(modal) {
+        // Close on outside click
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                this.close();
+            }
+        });
+
+        // Close on escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                this.close();
+            }
+        });
+    },
+
+    getModalTitle(type) {
+        const titles = {
+            cart: 'Shopping Cart',
+            quickView: 'Quick View',
+            customization: 'Customize Your Box',
+            review: 'Product Reviews'
+        };
+        return titles[type] || 'Modal';
+    }
+};
+
+// Initialize all systems
+document.addEventListener('DOMContentLoaded', () => {
+    shoppingCart.init();
+    // ... other initializations
+});
 
 
