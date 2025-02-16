@@ -6,6 +6,7 @@
     <title>Beyond Boxes - Luxury Gift Boxes</title>
     <link rel="stylesheet" type="text/css" href="./styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Raleway:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
     <nav class="navbar">
@@ -36,20 +37,26 @@
     </div>
 
     <div class="hero-section">
-        <h1>Welcome to Beyond Boxes</h1>
-        <p>Luxury Gift Boxes for Every Occasion</p>
+        <div class="hero-content">
+            <h1>Luxury Gift Boxes</h1>
+            <p>Make Every Moment Special</p>
+            <button class="cta-button" onclick="scrollToProducts()">Explore Collections</button>
+        </div>
     </div>
 
-    <div class="main-products">
-        <!-- Products will be loaded here via JavaScript -->
+    <div class="categories-section">
+        <h2>Our Collections</h2>
+        <div class="main-products">
+            <!-- Products will be loaded here via JavaScript -->
+        </div>
     </div>
 
     <div class="settings-panel">
-        <h3>Settings</h3>
+        <h3>Customize Experience</h3>
         <div class="theme-options">
             <h4>Theme</h4>
-            <button onclick="changeTheme('light')">Light</button>
-            <button onclick="changeTheme('dark')">Dark</button>
+            <button onclick="changeTheme('light')">Light Mode</button>
+            <button onclick="changeTheme('dark')">Dark Mode</button>
         </div>
         <div class="text-size">
             <h4>Text Size</h4>
@@ -60,16 +67,26 @@
 
     <footer>
         <div class="footer-content">
-            <div class="contact-info">
+            <div class="footer-section">
                 <h3>Contact Us</h3>
-                <p>📞 WhatsApp: +91 7406839266</p>
-                <p>📸 Instagram: @beyondboxess</p>
-                <p>📧 Email: beyondboxes1@gmail.com</p>
+                <p><i class="fab fa-whatsapp"></i> +91 7406839266</p>
+                <p><i class="fab fa-instagram"></i> @beyondboxess</p>
+                <p><i class="far fa-envelope"></i> beyondboxes1@gmail.com</p>
             </div>
-            <div class="social-links">
-                <a href="https://wa.me/917406839266" target="_blank"><i class="fab fa-whatsapp"></i></a>
-                <a href="https://instagram.com/beyondboxess" target="_blank"><i class="fab fa-instagram"></i></a>
-                <a href="mailto:beyondboxes1@gmail.com"><i class="fas fa-envelope"></i></a>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <a href="#birthday">Birthday Boxes</a>
+                <a href="#wedding">Wedding Boxes</a>
+                <a href="#corporate">Corporate Gifts</a>
+                <a href="#custom">Custom Boxes</a>
+            </div>
+            <div class="footer-section">
+                <h3>Connect With Us</h3>
+                <div class="social-links">
+                    <a href="https://wa.me/917406839266" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                    <a href="https://instagram.com/beyondboxess" target="_blank"><i class="fab fa-instagram"></i></a>
+                    <a href="mailto:beyondboxes1@gmail.com"><i class="far fa-envelope"></i></a>
+                </div>
             </div>
         </div>
         <div class="footer-bottom">
