@@ -1,63 +1,66 @@
+<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Beyond Boxes - Luxury Gift Boxes</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Beyond Boxes - Luxury Gift Solutions</title>
+    <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Header & Navigation -->
-    <header>
-        <nav>
-            <div class="logo">
-                <h1>Beyond Boxes</h1>
-                <p class="tagline">Luxury Gift Solutions</p>
-            </div>
-            <div class="menu-items">
-                <a href="#home">Home</a>
-                <a href="#products">Collections</a>
-                <a href="#about">About</a>
-                <a href="#contact">Contact</a>
-                <button id="settings-btn"><i class="fas fa-cog"></i></button>
-            </div>
-            <div class="mobile-menu">
-                <i class="fas fa-bars"></i>
-            </div>
-        </nav>
-    </header>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="logo">
+            <h1>Beyond Boxes</h1>
+            <span class="tagline">Luxury Gift Solutions</span>
+        </div>
+        
+        <div class="nav-links">
+            <a href="#home" class="active">Home</a>
+            <a href="#collections">Collections</a>
+            <a href="#about">About</a>
+            <a href="#contact">Contact</a>
+            <button id="settings-toggle" class="settings-btn">
+                <i class="fas fa-cog"></i>
+            </button>
+        </div>
+
+        <div class="mobile-menu">
+            <i class="fas fa-bars"></i>
+        </div>
+    </nav>
 
     <!-- Settings Panel -->
-    <div id="settings-panel" class="hidden">
-        <h3>Customize Your Experience</h3>
+    <div id="settings-panel" class="settings-panel hidden">
+        <h3>Customize Experience</h3>
         <div class="theme-toggle">
-            <label>Theme</label>
+            <span>Theme</span>
             <button id="light-theme">Light</button>
             <button id="dark-theme">Dark</button>
         </div>
         <div class="font-size">
-            <label>Text Size</label>
+            <span>Text Size</span>
             <button id="decrease-font">A-</button>
             <button id="increase-font">A+</button>
         </div>
     </div>
 
     <!-- Hero Section -->
-    <section class="hero">
+    <section class="hero" id="home">
         <div class="hero-content">
             <h1>Crafting Memorable Moments</h1>
             <p>Discover our exclusive collection of luxury gift boxes</p>
+            <a href="#collections" class="cta-button">Explore Collections</a>
         </div>
     </section>
 
-    <!-- Main Products Grid -->
-    <main>
-        <section id="products" class="products-section">
-            <h2>Our Collections</h2>
-            <div class="product-grid"></div>
-        </section>
-    </main>
+    <!-- Collections Section -->
+    <section id="collections" class="collections">
+        <h2>Our Luxury Collections</h2>
+        <div class="product-grid"></div>
+    </section>
 
     <!-- Product Modal -->
     <div id="product-modal" class="modal hidden">
@@ -68,20 +71,23 @@
     </div>
 
     <!-- Contact Section -->
-    <section id="contact" class="contact-section">
+    <section id="contact" class="contact">
         <h2>Connect With Us</h2>
-        <div class="contact-info">
+        <div class="contact-grid">
             <div class="contact-item">
                 <i class="fab fa-whatsapp"></i>
-                <p>+91 7406839266</p>
+                <p>WhatsApp</p>
+                <a href="tel:+917406839266">+91 7406839266</a>
             </div>
             <div class="contact-item">
                 <i class="fab fa-instagram"></i>
-                <p>@beyondboxess</p>
+                <p>Instagram</p>
+                <a href="https://instagram.com/beyondboxess" target="_blank">@beyondboxess</a>
             </div>
             <div class="contact-item">
                 <i class="far fa-envelope"></i>
-                <p>beyondboxes1@gmail.com</p>
+                <p>Email</p>
+                <a href="mailto:beyondboxes1@gmail.com">beyondboxes1@gmail.com</a>
             </div>
         </div>
     </section>
@@ -95,7 +101,7 @@
             </div>
             <div class="footer-links">
                 <h4>Quick Links</h4>
-                <a href="#products">Collections</a>
+                <a href="#collections">Collections</a>
                 <a href="#about">About Us</a>
                 <a href="#contact">Contact</a>
             </div>
@@ -104,5 +110,7 @@
             <p>&copy; 2024 Beyond Boxes. All rights reserved.</p>
         </div>
     </footer>
+
+    <script src="js/script.js"></script>
 </body>
 </html>
