@@ -4,15 +4,17 @@
 const products = [
     {
         id: 1,
+        category: 'birthday',
         name: "Birthday Special",
-        description: "Make birthdays extraordinary with our specially curated gift boxes. Each box is thoughtfully designed to bring joy and excitement to the special day.",
+        description: "Make birthdays extraordinary with our specially curated gift boxes.",
         image: "images/birthday/main-birthday.jpg",
         subProducts: [
             {
                 id: 'b1',
                 name: "Premium Birthday Box",
                 description: "A luxurious collection featuring premium chocolates, personalized cards, scented candles, and custom decorative items.",
-                price: "₹3,999 - ₹5,999",
+                price: 3999,
+                maxPrice: 5999,
                 image: "images/birthday/premium-birthday.jpg",
                 includes: [
                     "Premium Belgian Chocolates",
@@ -25,8 +27,9 @@ const products = [
             {
                 id: 'b2',
                 name: "Wooden Birthday Box",
-                description: "Handcrafted wooden box filled with premium gifts and keepsakes that can be treasured forever.",
-                price: "₹4,499 - ₹6,499",
+                description: "Handcrafted wooden box filled with premium gifts and keepsakes.",
+                price: 4499,
+                maxPrice: 6499,
                 image: "images/birthday/wooden-birthday.jpg",
                 includes: [
                     "Handcrafted Wooden Box",
@@ -36,69 +39,34 @@ const products = [
                     "Luxury Treats"
                 ]
             },
-            {
-                id: 'b3',
-                name: "Surprise Birthday Box",
-                description: "A mystery box filled with carefully curated surprises to make birthdays extra special.",
-                price: "₹2,999 - ₹4,499",
-                image: "images/birthday/surprise-birthday.jpg",
-                includes: [
-                    "Surprise Gift Items",
-                    "Birthday Accessories",
-                    "Sweet Treats",
-                    "Party Supplies",
-                    "Special Message Card"
-                ]
-            },
-            {
-                id: 'b4',
-                name: "Customized Birthday Box",
-                description: "Tailor-made gift box designed according to the recipient's interests and preferences.",
-                price: "₹4,999 - ₹7,999",
-                image: "images/birthday/custom-birthday.jpg",
-                includes: [
-                    "Personalized Gifts",
-                    "Custom Theme Items",
-                    "Favorite Treats",
-                    "Special Requests",
-                    "Premium Packaging"
-                ]
-            },
-            {
-                id: 'b5',
-                name: "Kids Birthday Box",
-                description: "Colorful and exciting gift box specially designed for children's birthdays.",
-                price: "₹2,499 - ₹3,999",
-                image: "images/birthday/kids-birthday.jpg",
-                includes: [
-                    "Age-Appropriate Toys",
-                    "Fun Activities",
-                    "Birthday Decorations",
-                    "Sweet Treats",
-                    "Party Favors"
-                ]
-            }
+            // Add other birthday sub-products...
         ]
     },
-    // ... Additional product categories will follow the same structure
+    // Add other main categories...
 ];
 
-// Main JavaScript functionality
+// Initialize Website
 document.addEventListener('DOMContentLoaded', () => {
     initializeWebsite();
 });
 
 function initializeWebsite() {
+    // Remove preloader
+    setTimeout(() => {
+        document.getElementById('preloader').style.display = 'none';
+    }, 1000);
+
     renderProducts();
     setupEventListeners();
     initializeSettings();
+    initializeCart();
 }
 
 // Product Rendering
 function renderProducts() {
     const productGrid = document.querySelector('.product-grid');
     productGrid.innerHTML = products.map(product => `
-        <div class="product-card" data-id="${product.id}">
+        <div class="product-card" data-category="${product.category}">
             <div class="product-image">
                 <img src="${product.image}" alt="${product.name}" 
                      onerror="this.src='images/placeholder.jpg'">
@@ -110,8 +78,8 @@ function renderProducts() {
                     <button class="read-more-btn" onclick="showProductDetails(${product.id})">
                         Read More
                     </button>
-                    <button class="order-btn" onclick="orderNow('${product.name}')">
-                        Order Now
+                    <button class="view-products-btn" onclick="showProductDetails(${product.id})">
+                        View Products
                     </button>
                 </div>
             </div>
@@ -142,7 +110,7 @@ function showProductDetails(productId) {
                         <p class="sub-description">${sub.description}</p>
                         <div class="price-tag">
                             <span>Starting from</span>
-                            <h5>${sub.price}</h5>
+                            <h5>₹${sub.price.toLocaleString()}</h5>
                         </div>
                         <div class="includes-section">
                             <h6>What's Included:</h6>
@@ -150,7 +118,10 @@ function showProductDetails(productId) {
                                 ${sub.includes.map(item => `<li>${item}</li>`).join('')}
                             </ul>
                         </div>
-                        <button class="order-btn" onclick="orderNow('${product.name} - ${sub.name}')">
+                        <button class="add-to-cart-btn" onclick="addToCart('${product.id}', '${sub.id}')">
+                            Add to Cart
+                        </button>
+                        <button class="order-now-btn" onclick="orderNow('${product.name} - ${sub.name}')">
                             Order Now
                         </button>
                     </div>
@@ -159,13 +130,92 @@ function showProductDetails(productId) {
         </div>
     `;
 
-    modal.classList.remove('hidden');
+    modal.classList.add('active');
 }
+
+// Shopping Cart
+class ShoppingCart {
+    constructor() {
+        this.items = [];
+        this.total = 0;
+    }
+
+    addItem(productId, subProductId) {
+        const product = products.find(p => p.id === productId);
+        const subProduct = product.subProducts.find(sp => sp.id === subProductId);
+        
+        const existingItem = this.items.find(item => 
+            item.productId === productId && item.subProductId === subProductId
+        );
+
+        if (existingItem) {
+            existingItem.quantity++;
+        } else {
+            this.items.push({
+                productId,
+                subProductId,
+                name: subProduct.name,
+                price: subProduct.price,
+                quantity: 1,
+                image: subProduct.image
+            });
+        }
+
+        this.updateTotal();
+        this.updateCartUI();
+        this.showNotification('Item added to cart');
+    }
+
+    updateTotal() {
+        this.total = this.items.reduce((sum, item) => 
+            sum + (item.price * item.quantity), 0
+        );
+    }
+
+    updateCartUI() {
+        const cartItems = document.getElementById('cart-items');
+        const cartTotal = document.getElementById('cart-total');
+        const cartCount = document.querySelector('.cart-count');
+
+        cartItems.innerHTML = this.items.map(item => `
+            <div class="cart-item">
+                <img src="${item.image}" alt="${item.name}">
+                <div class="cart-item-details">
+                    <h4>${item.name}</h4>
+                    <p>₹${item.price.toLocaleString()}</p>
+                    <div class="quantity-controls">
+                        <button onclick="cart.updateQuantity('${item.productId}', '${item.subProductId}', -1)">-</button>
+                        <span>${item.quantity}</span>
+                        <button onclick="cart.updateQuantity('${item.productId}', '${item.subProductId}', 1)">+</button>
+                    </div>
+                </div>
+                <button class="remove-item" onclick="cart.removeItem('${item.productId}', '${item.subProductId}')">×</button>
+            </div>
+        `).join('');
+
+        cartTotal.textContent = this.total.toLocaleString();
+        cartCount.textContent = this.items.reduce((sum, item) => sum + item.quantity, 0);
+    }
+
+    showNotification(message) {
+        const notification = document.createElement('div');
+        notification.className = 'notification';
+        notification.textContent = message;
+        document.body.appendChild(notification);
+
+        setTimeout(() => {
+            notification.remove();
+        }, 3000);
+    }
+}
+
+// Initialize cart
+const cart = new ShoppingCart();
 
 // WhatsApp Integration
 function orderNow(product) {
     const message = `Hello! I am interested in ordering the ${product} from Beyond Boxes.
-
+    
 Could you please provide details about:
 - Current availability
 - Customization options
@@ -177,7 +227,62 @@ Thank you!`;
     window.open(`https://wa.me/917406839266?text=${encodeURIComponent(message)}`);
 }
 
-// Settings Panel Functionality
+// Event Listeners
+function setupEventListeners() {
+    // Settings Panel Toggle
+    document.getElementById('settings-toggle').addEventListener('click', () => {
+        document.getElementById('settings-panel').classList.toggle('active');
+    });
+
+    // Cart Panel Toggle
+    document.getElementById('cart-toggle').addEventListener('click', () => {
+        document.getElementById('cart-panel').classList.toggle('active');
+    });
+
+    // Category Filter
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const category = btn.dataset.category;
+            filterProducts(category);
+        });
+    });
+
+    // Search Functionality
+    document.getElementById('search-input').addEventListener('input', (e) => {
+        searchProducts(e.target.value);
+    });
+}
+
+// Filter Products
+function filterProducts(category) {
+    const productCards = document.querySelectorAll('.product-card');
+    productCards.forEach(card => {
+        if (category === 'all' || card.dataset.category === category) {
+            card.style.display = 'block';
+        } else {
+            card.style.display = 'none';
+        }
+    });
+}
+
+// Search Products
+function searchProducts(searchTerm) {
+    const productCards = document.querySelectorAll('.product-card');
+    searchTerm = searchTerm.toLowerCase();
+
+    productCards.forEach(card => {
+        const title = card.querySelector('h3').textContent.toLowerCase();
+        const description = card.querySelector('p').textContent.toLowerCase();
+
+        if (title.includes(searchTerm) || description.includes(searchTerm)) {
+            card.style.display = 'block';
+        } else {
+            card.style.display = 'none';
+        }
+    });
+}
+
+// Initialize Settings
 function initializeSettings() {
     const root = document.documentElement;
     let fontSize = 16;
@@ -208,68 +313,3 @@ function initializeSettings() {
         }
     });
 }
-
-// Event Listeners
-function setupEventListeners() {
-    // Settings Panel Toggle
-    const settingsBtn = document.getElementById('settings-toggle');
-    const settingsPanel = document.getElementById('settings-panel');
-    
-    settingsBtn.addEventListener('click', () => {
-        settingsPanel.classList.toggle('hidden');
-    });
-
-    // Modal Close
-    const modal = document.getElementById('product-modal');
-    const closeModal = document.querySelector('.close-modal');
-    
-    closeModal.addEventListener('click', () => {
-        modal.classList.add('hidden');
-    });
-
-    // Close modal on outside click
-    window.addEventListener('click', (e) => {
-        if (e.target === modal) {
-            modal.classList.add('hidden');
-        }
-    });
-
-    // Smooth Scrolling
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            document.querySelector(this.getAttribute('href')).scrollIntoView({
-                behavior: 'smooth'
-            });
-        });
-    });
-
-    // Mobile Menu
-    const mobileMenuBtn = document.querySelector('.mobile-menu');
-    const navLinks = document.querySelector('.nav-links');
-    
-    mobileMenuBtn.addEventListener('click', () => {
-        navLinks.classList.toggle('show');
-    });
-}
-
-// Image Lazy Loading
-function lazyLoadImages() {
-    const images = document.querySelectorAll('img[data-src]');
-    
-    const imageObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const img = entry.target;
-                img.src = img.dataset.src;
-                img.removeAttribute('data-src');
-                observer.unobserve(img);
-            }
-        });
-    });
-
-    images.forEach(img => imageObserver.observe(img));
-}
-
-// Initialize lazy loading
-document.addEventListener('DOMContentLoaded', lazyLoadImages);
